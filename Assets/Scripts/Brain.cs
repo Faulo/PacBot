@@ -24,7 +24,7 @@ public class Brain : Agent {
     public override void Initialize() {
         gatherer.onCollect += CollectListener;
     }
-    void CollectListener(Interactable interactable, Vector3 position) {
+    void CollectListener(Interactable interactable) {
     }
 
     public override void OnEpisodeBegin() {

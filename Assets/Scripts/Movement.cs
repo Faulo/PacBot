@@ -22,6 +22,9 @@ public class Movement : MonoBehaviour {
     float jumpHeight = 1;
     float jumpForce => Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
 
+    [SerializeField, Range(-10, 10)]
+    float deathzoneY = -1;
+
     public float thrust {
         get => thrustCache;
         set => thrustCache = Mathf.Clamp(value, -0.5f, 1);
@@ -56,8 +59,11 @@ public class Movement : MonoBehaviour {
     public void Reset() {
         thrust = 0;
         torque = 0;
+        isJumping = false;
+
         transform.position = startingPosition;
         transform.rotation = startingRotation;
+
         attachedRigidbody.velocity = Vector3.zero;
         attachedRigidbody.angularVelocity = Vector3.zero;
     }
@@ -65,6 +71,11 @@ public class Movement : MonoBehaviour {
     Vector3 thurstVelocity = Vector3.zero;
     Vector3 torqueVelocity = Vector3.zero;
     void FixedUpdate() {
+        if (transform.position.y < deathzoneY) {
+            Reset();
+            return;
+        }
+
         if (isGrounded) {
             thurstVelocity = Vector3.Lerp(thurstVelocity, transform.forward * thrust * maxForwardSpeed, forwardLerpGrounded);
             torqueVelocity = Vector3.Lerp(torqueVelocity, transform.up * torque * maxTurnSpeed, turnLerpGrounded);
@@ -78,7 +89,5 @@ public class Movement : MonoBehaviour {
 
         attachedRigidbody.MovePosition(attachedRigidbody.position + (thurstVelocity * Time.deltaTime));
         attachedRigidbody.MoveRotation(attachedRigidbody.rotation * Quaternion.Euler(torqueVelocity * Time.deltaTime));
-
-        attachedRigidbody.angularVelocity = Vector3.zero;
     }
 }

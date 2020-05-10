@@ -10,8 +10,6 @@ public class GroundTester : MonoBehaviour {
     void OnTriggerStay(Collider other) {
         if (other.CompareTag("Ground")) {
             groundedFramesLeft = coyoteFrames;
-        } else {
-            Debug.Log(other.gameObject.tag);
         }
     }
 

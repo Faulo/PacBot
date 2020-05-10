@@ -150,11 +150,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db734faf8b3edd84284212077e28d9c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 100
-  height: 10
-  depth: 100
+  width: 3
+  depth: 3
   wallPrefab: {fileID: 7947011362384699019, guid: 7a116fb5f384ef444aa922fb4046d77b,
     type: 3}
+  mode: 0
+  height: 20
+  pathY: 0.5
+  pathMargin: 0.1
 --- !u!4 &157831478
 Transform:
   m_ObjectHideFlags: 0
