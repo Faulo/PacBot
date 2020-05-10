@@ -1,0 +1,16 @@
+{
+    "name": "PacBot",
+    "references": [
+        "GUID:85e0054f8e64b47309646d35f8851f81",
+        "GUID:507d80cf36f8258488bde8c39deefd3a"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

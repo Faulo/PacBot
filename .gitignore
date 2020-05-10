@@ -1,0 +1,17 @@
+/*
+/*/
+
+!.gitattributes
+!.gitignore
+!.gitmodules
+
+!.editorconfig
+!*.md
+
+!/Assets/
+!/ProjectSettings/
+!/Packages/
+
+/Assets/ML-Agents*
+/Assets/Resources/Brains/models/
+/Assets/Resources/Brains/summaries/
