@@ -1,6 +1,6 @@
 PacBot:
   measure: progress
-  thresholds: [0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9]
+  thresholds: [0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5, 0.5]
   min_lesson_length: 100
   signal_smoothing: true
   parameters:

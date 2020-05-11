@@ -55,7 +55,7 @@ MonoBehaviour:
   MaxStep: 0
   movement: {fileID: 1656927184097964935}
   arena: {fileID: 0}
-  allowedStepsPerTile: 5
+  allowedStepsPerTile: 10
 --- !u!114 &52656825478494775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,7 +74,7 @@ MonoBehaviour:
     VectorActionSize: 030000000300000002000000
     VectorActionDescriptions: []
     VectorActionSpaceType: 0
-  m_Model: {fileID: 0}
+  m_Model: {fileID: 5022602860645237092, guid: 01529d981f02e694f893dc054f4beec3, type: 3}
   m_InferenceDevice: 0
   m_BehaviorType: 0
   m_BehaviorName: PacBot

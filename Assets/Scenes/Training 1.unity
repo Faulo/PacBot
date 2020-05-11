@@ -244,8 +244,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   arenaPrefab: {fileID: 3567798655894566236, guid: afa0206065cb08b4fa3d0bb5644c5afc,
     type: 3}
-  arenaRows: 3
-  arenaColumns: 3
+  arenaRows: 4
+  arenaColumns: 4
 --- !u!4 &594817409
 Transform:
   m_ObjectHideFlags: 0

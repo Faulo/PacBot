@@ -13,7 +13,7 @@ public class Brain : Agent {
     Movement movement = default;
     [SerializeField]
     Arena arena = default;
-    [SerializeField, Range(0, 10)]
+    [SerializeField, Range(0, 100)]
     int allowedStepsPerTile = 0;
 
     void Awake() {
