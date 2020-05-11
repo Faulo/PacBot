@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
-public class Academy : MonoBehaviour {
+public class PacAcademy : MonoBehaviour {
     [SerializeField]
     Arena arenaPrefab = default;
     [SerializeField, Range(0, 100)]
@@ -8,12 +9,12 @@ public class Academy : MonoBehaviour {
     [SerializeField, Range(0, 100)]
     int arenaColumns = 1;
 
-    void Awake() {
+    IEnumerator Start() {
         var offset = 2 * arenaPrefab.size;
         for (int x = 0; x < arenaColumns; x++) {
             for (int y = 0; y < arenaRows; y++) {
-                var arena = Instantiate(arenaPrefab, transform);
-                arena.transform.localPosition = new Vector3(x * offset.x, 0, y * offset.y);
+                Instantiate(arenaPrefab, new Vector3(x * offset.x, 0, y * offset.y), Quaternion.identity, transform);
+                yield return null;
             }
         }
     }

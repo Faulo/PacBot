@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using Unity.MLAgents;
 using UnityEngine;
 
 [SelectionBase]
@@ -29,9 +31,20 @@ public class Arena : MonoBehaviour {
             }
         }
     }
+    [Serializable]
+    class AcademyMapGenerator : ILevelGenerator {
+        [SerializeField]
+        string heightParameter = "map_height";
+        public float GetY(float noise) {
+            return Mathf.RoundToInt(Academy.Instance.EnvironmentParameters.GetWithDefault(heightParameter, 0) * noise);
+        }
+    }
+    
+
     enum LayoutMode {
         HeightMap,
         HeightPath,
+        AcademyMap,
     }
     [Header("Level size")]
     [SerializeField, Range(0, 100)]
@@ -51,6 +64,7 @@ public class Arena : MonoBehaviour {
     Transform botPrefab = default;
 
     Transform[,] tiles;
+    ISet<Transform> interactables;
 
     [Header("Level layout")]
     [SerializeField, Range(0.0001f, 1000)]
@@ -68,6 +82,8 @@ public class Arena : MonoBehaviour {
                     return heightMap;
                 case LayoutMode.HeightPath:
                     return heightPath;
+                case LayoutMode.AcademyMap:
+                    return academyMap;
                 default:
                     throw new NotImplementedException(mode.ToString());
             }
@@ -78,20 +94,23 @@ public class Arena : MonoBehaviour {
     [SerializeField]
     HeightPathGenerator heightPath = default;
     [SerializeField]
+    AcademyMapGenerator academyMap = default;
+    [SerializeField]
     bool updateTilesWhileRunning = false;
     [SerializeField, Range(0, 1)]
     float updateInterval = 1;
 
     void Awake() {
-        transform.localPosition = new Vector3(width / -2, 0, depth / -2);
+        transform.localPosition += new Vector3(width / -2, 0, depth / -2);
 
         tiles = new Transform[width, depth];
+        interactables = new HashSet<Transform>();
         int t = 0;
         for (int x = 0; x < width; x++) {
             for (int z = 0; z < depth; z++) {
                 tiles[x, z] = Instantiate(wallPrefab, transform);
                 if (t % interactablesPerTile == 0) {
-                    Instantiate(interactablePrefab, tiles[x, z]);
+                    interactables.Add(Instantiate(interactablePrefab, tiles[x, z]));
                 }
                 UpdateTileAt(x, z);
                 t++;
@@ -99,21 +118,32 @@ public class Arena : MonoBehaviour {
         }
         int botX = width / 2;
         int botZ = depth / 2;
-        Instantiate(botPrefab, tiles[botX, botZ].position + Vector3.up, Quaternion.identity, transform);
+        var bot = Instantiate(botPrefab, tiles[botX, botZ].position + Vector3.up, Quaternion.identity, transform);
+        bot.GetComponentInChildren<Brain>().onEpisodeBegin += ResetArena;
     }
 
+    void ResetArena(Brain bot) {
+        foreach (var interactable in interactables) {
+            interactable.gameObject.SetActive(true);
+        }
+        UpdateTiles();
+    }
+
+    void UpdateTiles() {
+        for (int x = 0; x < width; x++) {
+            for (int z = 0; z < depth; z++) {
+                UpdateTileAt(x, z);
+            }
+        }
+    }
     void UpdateTileAt(int x, int z) {
-        float y = Mathf.PerlinNoise((x / noiseScale) + noiseOffsetX, (z / noiseScale) + noiseOffsetZ);
+        float y = Mathf.PerlinNoise((x / noiseScale) + noiseOffsetX + transform.position.x, (z / noiseScale) + noiseOffsetZ + transform.position.z);
         tiles[x, z].localPosition = new Vector3(x, generator.GetY(y), z);
     }
 
     IEnumerator Start() {
         while (updateTilesWhileRunning) {
-            for (int x = 0; x < width; x++) {
-                for (int z = 0; z < depth; z++) {
-                    UpdateTileAt(x, z);
-                }
-            }
+            UpdateTiles();
             yield return new WaitForSeconds(updateInterval);
         }
     }

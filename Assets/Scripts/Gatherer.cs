@@ -12,7 +12,7 @@ public class Gatherer : MonoBehaviour {
     void OnTriggerEnter(Collider other) {
         if (other.TryGetComponent<Interactable>(out var interactable)) {
             onCollect?.Invoke(interactable);
-            Destroy(interactable.gameObject);
+            interactable.gameObject.SetActive(false);
         }
     }
 }
