@@ -124,6 +124,7 @@ public class Arena : MonoBehaviour {
 
     void ResetArena(Brain bot) {
         foreach (var interactable in interactables) {
+            interactable.localPosition = interactablePrefab.localPosition;
             interactable.gameObject.SetActive(true);
         }
         UpdateTiles();

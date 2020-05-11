@@ -1,7 +1,10 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 [SelectionBase]
 public class Movement : MonoBehaviour {
+    public event Action<Movement> onFall;
+
     [SerializeField]
     Rigidbody attachedRigidbody = default;
 
@@ -57,16 +60,19 @@ public class Movement : MonoBehaviour {
         Reset();
     }
 
-    public void Reset() {
+    void Reset() {
         thrust = 0;
         torque = 0;
         isJumping = false;
 
-        transform.position = startingPosition;
+        transform.position = lastPosition = startingPosition;
         transform.rotation = startingRotation;
 
         attachedRigidbody.velocity = Vector3.zero;
         attachedRigidbody.angularVelocity = Vector3.zero;
+
+        thurstVelocity = Vector3.zero;
+        torqueVelocity = Vector3.zero;
     }
 
     Vector3 thurstVelocity = Vector3.zero;
@@ -76,6 +82,7 @@ public class Movement : MonoBehaviour {
     Vector3 observedVelocity = Vector3.zero;
     void FixedUpdate() {
         if (transform.position.y < deathzoneY) {
+            onFall?.Invoke(this);
             Reset();
             return;
         }

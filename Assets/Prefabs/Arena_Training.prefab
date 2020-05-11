@@ -28,6 +28,11 @@ PrefabInstance:
       propertyPath: depth
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 271264848595465097, guid: e90c6ca367d2709459bd319123ac4786,
+        type: 3}
+      propertyPath: mode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 271264848595465098, guid: e90c6ca367d2709459bd319123ac4786,
         type: 3}
       propertyPath: m_LocalPosition.x
