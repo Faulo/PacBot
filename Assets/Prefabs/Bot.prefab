@@ -54,8 +54,8 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   movement: {fileID: 1656927184097964935}
-  gatherer: {fileID: 2910822809796406873}
-  reset: 0
+  arena: {fileID: 0}
+  allowedStepsPerTile: 5
 --- !u!114 &52656825478494775
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -69,7 +69,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BrainParameters:
-    VectorObservationSize: 4
+    VectorObservationSize: 5
     NumStackedVectorObservations: 1
     VectorActionSize: 030000000300000002000000
     VectorActionDescriptions: []
@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 0
-  m_BehaviorName: NanoBot
+  m_BehaviorName: PacBot
   TeamId: 0
   m_UseChildSensors: 1
 --- !u!114 &454255932
@@ -199,7 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SensorName: ForwardRaySensorUp
   m_DetectableTags:
-  - Wall
+  - Ground
   - Interactable
   m_RaysPerDirection: 4
   m_MaxRayDegrees: 75
@@ -294,11 +294,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attachedRigidbody: {fileID: 6264496069982718003}
-  maxForwardSpeed: 10
+  maxForwardSpeedGrounded: 10
   forwardLerpGrounded: 0.1
+  maxForwardSpeedAirborne: 5
   forwardLerpAirborne: 0.02
-  maxTurnSpeed: 400
+  maxTurnSpeedGrounded: 400
   turnLerpGrounded: 0.25
+  maxTurnSpeedAirborne: 200
   turnLerpAirborne: 0.1
   jumpHeight: 1.5
   deathzoneY: -1
@@ -306,6 +308,8 @@ MonoBehaviour:
   isGrounded: 0
   localVelocity: {x: 0, y: 0, z: 0}
   angularVelocityY: 0
+  startingPosition: {x: 0, y: 0, z: 0}
+  startingRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &2494512735596099106
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,7 +460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SensorName: ForwardRaySensor
   m_DetectableTags:
-  - Wall
+  - Ground
   - Interactable
   m_RaysPerDirection: 8
   m_MaxRayDegrees: 75
@@ -515,7 +519,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SensorName: ForwardRaySensorDown
   m_DetectableTags:
-  - Wall
+  - Ground
   - Interactable
   m_RaysPerDirection: 4
   m_MaxRayDegrees: 75
@@ -574,7 +578,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SensorName: BackwardRaySensor
   m_DetectableTags:
-  - Wall
+  - Ground
   - Interactable
   m_RaysPerDirection: 2
   m_MaxRayDegrees: 90

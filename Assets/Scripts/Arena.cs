@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.MLAgents;
 using UnityEngine;
 
@@ -39,13 +40,14 @@ public class Arena : MonoBehaviour {
             return Mathf.RoundToInt(Academy.Instance.EnvironmentParameters.GetWithDefault(heightParameter, 0) * noise);
         }
     }
-    
-
     enum LayoutMode {
         HeightMap,
         HeightPath,
         AcademyMap,
     }
+
+    public event Action<Arena> onClear;
+
     [Header("Level size")]
     [SerializeField, Range(0, 100)]
     int width = 10;
@@ -116,13 +118,25 @@ public class Arena : MonoBehaviour {
                 t++;
             }
         }
-        int botX = width / 2;
-        int botZ = depth / 2;
-        var bot = Instantiate(botPrefab, tiles[botX, botZ].position + Vector3.up, Quaternion.identity, transform);
-        bot.GetComponentInChildren<Brain>().onEpisodeBegin += ResetArena;
+        Instantiate(botPrefab, PositionOnTile(width / 2, depth / 2), Quaternion.identity, transform);
     }
 
-    void ResetArena(Brain bot) {
+    public Vector3 PositionOnTile(int x, int z) {
+        return tiles[x, z].position + Vector3.up;
+    }
+
+    public Vector3 PositionOnRandomTile() {
+        return PositionOnTile(UnityEngine.Random.Range(0, width), UnityEngine.Random.Range(0, depth));
+    }
+
+    void Update() {
+        if (!interactables.Any(i => i.gameObject.activeSelf)) {
+            onClear?.Invoke(this);
+        }
+    }
+
+
+    public void Reset() {
         foreach (var interactable in interactables) {
             interactable.localPosition = interactablePrefab.localPosition;
             interactable.gameObject.SetActive(true);

@@ -6,27 +6,30 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 0
-    path: Assets/Scenes/Training_1.unity
-    guid: b2bff25f92c2b1145b1fdc5eaa8b3887
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Scenes/Training_2.unity
-    guid: ae1ddb1ef41b92e439309f40d93220ae
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Scenes/Training_3.unity
-    guid: ffa10f31147c6704da66734d766ba538
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 0
-    path: Assets/Scenes/Training_4.unity
-    guid: a7aef7297612efc4dba66dce812ead79
-  - enabled: 1
-    path: Assets/Scenes/Start Scene.unity
-    guid: cb17bdcf0c063490084bb757e006a650
-  - enabled: 1
-    path: Assets/Scenes/Credits.unity
-    guid: 80ea2eceb0a9b45bfa0c6d344b0b7eba
-  - enabled: 1
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
     path: Assets/Scenes/Level 1.unity
     guid: 77cc157d1402a4cbd811b25337e1fadf
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Level 2.unity
-    guid: 6c216f443d5df46cfa5b829f44910ecd
+    path: Assets/Scenes/Training 1.unity
+    guid: 05a859bafb44a804a98b5968ed4735ff
   m_configObjects: {}

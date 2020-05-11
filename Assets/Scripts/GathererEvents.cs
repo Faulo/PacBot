@@ -14,6 +14,9 @@ public class GathererEvents : MonoBehaviour {
     InteractableEvent onCollect = new InteractableEvent();
 
     void OnEnable() {
+        if (!observedGatherer) {
+            observedGatherer = GetComponentInParent<Gatherer>();
+        }
         observedGatherer.onCollect += onCollect.Invoke;
     }
     void OnDisable() {

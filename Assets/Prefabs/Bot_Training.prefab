@@ -10,8 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2462571433677589186}
   - component: {fileID: 2620579835677764337}
+  - component: {fileID: 5002759433334928731}
   - component: {fileID: 4389800629593541781}
-  - component: {fileID: 5540950611437111862}
+  - component: {fileID: 998021374107378086}
   m_Layer: 0
   m_Name: Rewards
   m_TagString: Untagged
@@ -50,13 +51,51 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6704718238658654865}
-        m_MethodName: SetReward
+        m_MethodName: AddReward
         m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: -1
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 6704718238658654865}
+        m_MethodName: EndEpisode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &5002759433334928731
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3009368058578153650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a63447e8f73d6f6469f4cbed0124b5e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  observedArena: {fileID: 0}
+  onClear:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6704718238658654865}
+        m_MethodName: AddReward
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 1
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -94,11 +133,11 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0.01
+          m_FloatArgument: 0.001
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!114 &5540950611437111862
+--- !u!114 &998021374107378086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,7 +163,7 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: -0.001
+          m_FloatArgument: -0.0001
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2

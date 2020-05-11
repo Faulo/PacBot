@@ -10,18 +10,25 @@ public class Movement : MonoBehaviour {
 
     [Header("Movement")]
     [SerializeField, Range(0, 1000)]
-    float maxForwardSpeed = 100;
+    float maxForwardSpeedGrounded = 10;
     [SerializeField, Range(0, 1)]
     float forwardLerpGrounded = 1;
+    [SerializeField, Range(0, 1000)]
+    float maxForwardSpeedAirborne = 5;
     [SerializeField, Range(0, 1)]
     float forwardLerpAirborne = 1;
+
+    [Header("Turning")]
     [SerializeField, Range(0, 1000)]
-    float maxTurnSpeed = 100;
+    float maxTurnSpeedGrounded = 400;
     [SerializeField, Range(0, 1)]
     float turnLerpGrounded = 1;
+    [SerializeField, Range(0, 1000)]
+    float maxTurnSpeedAirborne = 200;
     [SerializeField, Range(0, 1)]
     float turnLerpAirborne = 1;
 
+    [Header("Jumping")]
     [SerializeField, Range(0, 10)]
     float jumpHeight = 1;
     float jumpForce => Mathf.Sqrt(jumpHeight * -2f * Physics.gravity.y);
@@ -60,7 +67,7 @@ public class Movement : MonoBehaviour {
         Reset();
     }
 
-    void Reset() {
+    public void Reset() {
         thrust = 0;
         torque = 0;
         isJumping = false;
@@ -88,20 +95,21 @@ public class Movement : MonoBehaviour {
         }
 
         observedVelocity = (transform.position - lastPosition) / Time.deltaTime;
-        localVelocity = transform.InverseTransformDirection(observedVelocity) / maxForwardSpeed;
+        localVelocity = transform.InverseTransformDirection(observedVelocity) / maxForwardSpeedGrounded;
         lastPosition = transform.position;
 
-        angularVelocityY = torqueVelocity.y / maxTurnSpeed;
+        angularVelocityY = torqueVelocity.y / maxTurnSpeedGrounded;
 
         if (isGrounded) {
-            thurstVelocity = Vector3.Lerp(thurstVelocity, transform.forward * thrust * maxForwardSpeed, forwardLerpGrounded);
-            torqueVelocity = Vector3.Lerp(torqueVelocity, transform.up * torque * maxTurnSpeed, turnLerpGrounded);
+            thurstVelocity = Vector3.Lerp(thurstVelocity, transform.forward * thrust * maxForwardSpeedGrounded, forwardLerpGrounded);
+            torqueVelocity = Vector3.Lerp(torqueVelocity, transform.up * torque * maxTurnSpeedGrounded, turnLerpGrounded);
             if (isJumping) {
+                isJumping = false;
                 attachedRigidbody.velocity = new Vector3(attachedRigidbody.velocity.x, jumpForce, attachedRigidbody.velocity.z);
             }
         } else {
-            thurstVelocity = Vector3.Lerp(thurstVelocity, transform.forward * thrust * maxForwardSpeed, forwardLerpAirborne);
-            torqueVelocity = Vector3.Lerp(torqueVelocity, transform.up * torque * maxTurnSpeed, turnLerpAirborne);
+            thurstVelocity = Vector3.Lerp(thurstVelocity, transform.forward * thrust * maxForwardSpeedAirborne, forwardLerpAirborne);
+            torqueVelocity = Vector3.Lerp(torqueVelocity, transform.up * torque * maxTurnSpeedAirborne, turnLerpAirborne);
         }
 
         attachedRigidbody.MovePosition(attachedRigidbody.position + (thurstVelocity * Time.deltaTime));

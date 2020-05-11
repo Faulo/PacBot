@@ -1,0 +1,7 @@
+PacBot:
+  measure: progress
+  thresholds: [0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9, 0.9]
+  min_lesson_length: 100
+  signal_smoothing: true
+  parameters:
+    map_height: [0, 1, 2, 3, 4, 5, 6, 7, 8]

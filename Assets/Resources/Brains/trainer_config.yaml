@@ -22,15 +22,16 @@ default:
         extrinsic:
             strength: 1.0
             gamma: 0.99
-NanoBot:
-    normalize: false
+PacBot:
     max_steps: 5.0e7
-    learning_rate_schedule: constant
-    batch_size: 2048
-    buffer_size: 20480
-    hidden_units: 512
-    time_horizon: 1000
+    batch_size: 128
+    buffer_size: 2048
+    beta: 5.0e-3
+    hidden_units: 256
+    summary_freq: 10000
+    time_horizon: 128
     num_layers: 2
+    normalize: false
       
 FoodCollector:
     normalize: false

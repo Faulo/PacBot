@@ -16,6 +16,9 @@ public class BrainEvents : MonoBehaviour {
     BrainEvent onAction = new BrainEvent();
 
     void OnEnable() {
+        if (!observedBrain) {
+            observedBrain = GetComponentInParent<Brain>();
+        }
         observedBrain.onEpisodeBegin += onEpisodeBegin.Invoke;
         observedBrain.onAction += onAction.Invoke;
     }

@@ -14,6 +14,9 @@ public class MovementEvents : MonoBehaviour {
     MovementEvent onFall = new MovementEvent();
 
     void OnEnable() {
+        if (!observedMovement) {
+            observedMovement = GetComponentInParent<Movement>();
+        }
         observedMovement.onFall += onFall.Invoke;
     }
     void OnDisable() {

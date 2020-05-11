@@ -11,13 +11,33 @@ public class Brain : Agent {
 
     [SerializeField]
     Movement movement = default;
+    [SerializeField]
+    Arena arena = default;
+    [SerializeField, Range(0, 10)]
+    int allowedStepsPerTile = 0;
+
+    void Awake() {
+        if (!movement) {
+            movement = GetComponentInParent<Movement>();
+        }
+        if (!arena) {
+            arena = GetComponentInParent<Arena>();
+        }
+        MaxStep = arena.size.x * arena.size.y * allowedStepsPerTile;
+    }
 
     public override void OnEpisodeBegin() {
+        movement.startingPosition = arena.PositionOnRandomTile();
+        movement.startingRotation = Quaternion.Euler(Vector3.up * UnityEngine.Random.Range(0, 360));
+
+        movement.Reset();
+        arena.Reset();
         onEpisodeBegin?.Invoke(this);
     }
     public override void CollectObservations(VectorSensor sensor) {
         sensor.AddObservation(movement.localVelocity);
         sensor.AddObservation(movement.angularVelocityY);
+        sensor.AddObservation(movement.isGrounded);
     }
     static readonly IDictionary<int, float> thrustValues = new Dictionary<int, float>() {
         [0] = -1,
