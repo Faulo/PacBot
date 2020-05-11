@@ -18,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1922690561
 Transform:
   m_ObjectHideFlags: 0
@@ -30,7 +30,9 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 8149343475697006410}
   - {fileID: 2257159715204775795}
+  - {fileID: 7381171157297757177}
   - {fileID: 1511605590297270528}
   m_Father: {fileID: 3228077876656644058}
   m_RootOrder: 1
@@ -52,7 +54,7 @@ MonoBehaviour:
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
   movement: {fileID: 1656927184097964935}
-  gatherer: {fileID: 0}
+  gatherer: {fileID: 2910822809796406873}
   reset: 0
 --- !u!114 &52656825478494775
 MonoBehaviour:
@@ -152,6 +154,65 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movement: {fileID: 1656927184097964935}
   coyoteFrames: 1
+--- !u!1 &1956089619176610111
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8149343475697006410}
+  - component: {fileID: 9037923563685812523}
+  m_Layer: 0
+  m_Name: ForwardRaySensorUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8149343475697006410
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956089619176610111}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: -0.32}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1922690561}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9037923563685812523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1956089619176610111}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: ForwardRaySensorUp
+  m_DetectableTags:
+  - Wall
+  - Interactable
+  m_RaysPerDirection: 4
+  m_MaxRayDegrees: 75
+  m_SphereCastRadius: 0.1
+  m_RayLength: 20
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_ObservationStacks: 3
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  m_StartVerticalOffset: 0
+  m_EndVerticalOffset: 5
 --- !u!1 &2032566867259490674
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,7 +227,7 @@ GameObject:
   - component: {fileID: 1656927184097964935}
   m_Layer: 0
   m_Name: Bot
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -243,6 +304,8 @@ MonoBehaviour:
   deathzoneY: -1
   isJumping: 0
   isGrounded: 0
+  localVelocity: {x: 0, y: 0, z: 0}
+  angularVelocityY: 0
 --- !u!1 &2494512735596099106
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,7 +422,7 @@ GameObject:
   - component: {fileID: 2257159715204775795}
   - component: {fileID: 429749979588076584}
   m_Layer: 0
-  m_Name: ForwardRaySensor3D
+  m_Name: ForwardRaySensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -373,11 +436,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4203554737780014632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.1, z: -0.32}
+  m_LocalPosition: {x: 0, y: 0.5, z: -0.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1922690561}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &429749979588076584
 MonoBehaviour:
@@ -393,15 +456,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SensorName: ForwardRaySensor
   m_DetectableTags:
-  - Interactable_Candy
-  - Interactable_Antimatter
-  - Interactable_Matter
   - Wall
-  - Wall_Antimatter
-  - Wall_Matter
+  - Interactable
   m_RaysPerDirection: 8
   m_MaxRayDegrees: 75
-  m_SphereCastRadius: 0
+  m_SphereCastRadius: 0.1
   m_RayLength: 20
   m_RayLayerMask:
     serializedVersion: 2
@@ -411,6 +470,65 @@ MonoBehaviour:
   rayMissColor: {r: 1, g: 1, b: 1, a: 1}
   m_StartVerticalOffset: 0
   m_EndVerticalOffset: 0
+--- !u!1 &4544933075863864966
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7381171157297757177}
+  - component: {fileID: 5829930498464206923}
+  m_Layer: 0
+  m_Name: ForwardRaySensorDown
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7381171157297757177
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4544933075863864966}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: -0.32}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1922690561}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5829930498464206923
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4544933075863864966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb6b867a41448888c1cd4f99643ad71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SensorName: ForwardRaySensorDown
+  m_DetectableTags:
+  - Wall
+  - Interactable
+  m_RaysPerDirection: 4
+  m_MaxRayDegrees: 75
+  m_SphereCastRadius: 0.1
+  m_RayLength: 20
+  m_RayLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_ObservationStacks: 3
+  rayHitColor: {r: 1, g: 0, b: 0, a: 1}
+  rayMissColor: {r: 1, g: 1, b: 1, a: 1}
+  m_StartVerticalOffset: 0
+  m_EndVerticalOffset: -5
 --- !u!1 &6761955515369105149
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,7 +540,7 @@ GameObject:
   - component: {fileID: 1511605590297270528}
   - component: {fileID: 7875872162268536090}
   m_Layer: 0
-  m_Name: BackwardRaySensor3D
+  m_Name: BackwardRaySensor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -436,11 +554,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6761955515369105149}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0.1, z: -0.32}
+  m_LocalPosition: {x: 0, y: 0.5, z: -0.32}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1922690561}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &7875872162268536090
 MonoBehaviour:
@@ -456,15 +574,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SensorName: BackwardRaySensor
   m_DetectableTags:
-  - Interactable_Candy
-  - Interactable_Antimatter
-  - Interactable_Matter
   - Wall
-  - Wall_Antimatter
-  - Wall_Matter
+  - Interactable
   m_RaysPerDirection: 2
   m_MaxRayDegrees: 90
-  m_SphereCastRadius: 0
+  m_SphereCastRadius: 0.1
   m_RayLength: 20
   m_RayLayerMask:
     serializedVersion: 2

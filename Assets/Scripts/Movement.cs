@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 
+[SelectionBase]
 public class Movement : MonoBehaviour {
     [SerializeField]
     Rigidbody attachedRigidbody = default;
@@ -37,15 +38,15 @@ public class Movement : MonoBehaviour {
     }
     float torqueCache;
 
-    [Header("Debug")]
+    [Header("Debug variables")]
     public bool isJumping;
     public bool isGrounded;
 
-    public Vector3 localVelocity => attachedRigidbody.velocity;
-    public float angularVelocity => attachedRigidbody.angularVelocity.y;
+    public Vector3 localVelocity;
+    public float angularVelocityY;
 
-    Vector3 startingPosition;
-    Quaternion startingRotation;
+    public Vector3 startingPosition;
+    public Quaternion startingRotation;
 
     void Awake() {
         startingPosition = transform.position;
@@ -70,11 +71,20 @@ public class Movement : MonoBehaviour {
 
     Vector3 thurstVelocity = Vector3.zero;
     Vector3 torqueVelocity = Vector3.zero;
+
+    Vector3 lastPosition = Vector3.zero;
+    Vector3 observedVelocity = Vector3.zero;
     void FixedUpdate() {
         if (transform.position.y < deathzoneY) {
             Reset();
             return;
         }
+
+        observedVelocity = (transform.position - lastPosition) / Time.deltaTime;
+        localVelocity = transform.InverseTransformDirection(observedVelocity) / maxForwardSpeed;
+        lastPosition = transform.position;
+
+        angularVelocityY = torqueVelocity.y / maxTurnSpeed;
 
         if (isGrounded) {
             thurstVelocity = Vector3.Lerp(thurstVelocity, transform.forward * thrust * maxForwardSpeed, forwardLerpGrounded);

@@ -4,6 +4,7 @@ using Unity.MLAgents;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
 
+[SelectionBase]
 public class Brain : Agent {
     public event Action<Brain> onEpisodeBegin;
     public event Action<Brain> onAction;
@@ -33,7 +34,7 @@ public class Brain : Agent {
     }
     public override void CollectObservations(VectorSensor sensor) {
         sensor.AddObservation(movement.localVelocity);
-        sensor.AddObservation(movement.angularVelocity);
+        sensor.AddObservation(movement.angularVelocityY);
     }
     static readonly IDictionary<int, float> thrustValues = new Dictionary<int, float>() {
         [0] = -1,

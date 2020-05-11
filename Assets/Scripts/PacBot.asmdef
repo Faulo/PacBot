@@ -2,7 +2,8 @@
     "name": "PacBot",
     "references": [
         "GUID:85e0054f8e64b47309646d35f8851f81",
-        "GUID:507d80cf36f8258488bde8c39deefd3a"
+        "GUID:507d80cf36f8258488bde8c39deefd3a",
+        "GUID:4307f53044263cf4b835bd812fc161a4"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

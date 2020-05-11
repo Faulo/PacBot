@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine;
 
+[SelectionBase]
 public class Arena : MonoBehaviour {
     interface ILevelGenerator {
         float GetY(float noise);
@@ -46,6 +47,9 @@ public class Arena : MonoBehaviour {
     [SerializeField, Range(1, 10)]
     float interactablesPerTile = 1;
 
+    [SerializeField]
+    Transform botPrefab = default;
+
     Transform[,] tiles;
 
     [Header("Level layout")]
@@ -73,6 +77,8 @@ public class Arena : MonoBehaviour {
     HeightMapGenerator heightMap = default;
     [SerializeField]
     HeightPathGenerator heightPath = default;
+    [SerializeField]
+    bool updateTilesWhileRunning = false;
     [SerializeField, Range(0, 1)]
     float updateInterval = 1;
 
@@ -87,17 +93,25 @@ public class Arena : MonoBehaviour {
                 if (t % interactablesPerTile == 0) {
                     Instantiate(interactablePrefab, tiles[x, z]);
                 }
+                UpdateTileAt(x, z);
                 t++;
             }
         }
+        int botX = width / 2;
+        int botZ = depth / 2;
+        Instantiate(botPrefab, tiles[botX, botZ].position + Vector3.up, Quaternion.identity, transform);
+    }
+
+    void UpdateTileAt(int x, int z) {
+        float y = Mathf.PerlinNoise((x / noiseScale) + noiseOffsetX, (z / noiseScale) + noiseOffsetZ);
+        tiles[x, z].localPosition = new Vector3(x, generator.GetY(y), z);
     }
 
     IEnumerator Start() {
-        while (true) {
+        while (updateTilesWhileRunning) {
             for (int x = 0; x < width; x++) {
                 for (int z = 0; z < depth; z++) {
-                    float y = Mathf.PerlinNoise((x / noiseScale) + noiseOffsetX, (z / noiseScale) + noiseOffsetZ);
-                    tiles[x, z].localPosition = new Vector3(x, generator.GetY(y), z);
+                    UpdateTileAt(x, z);
                 }
             }
             yield return new WaitForSeconds(updateInterval);
