@@ -2,7 +2,7 @@
 using UnityEngine;
 
 public class SFX : MonoBehaviour {
-    [SerializeField]
+    [SerializeField, Expandable]
     AudioSource sourcePrefab = default;
     [SerializeField]
     AudioClip[] clips = default;

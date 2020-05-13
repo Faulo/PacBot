@@ -1,5 +1,4 @@
 ﻿using System;
-using Slothsoft.UnityExtensions;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -11,6 +10,8 @@ public class ArenaEvents : MonoBehaviour {
     Arena observedArena = default;
 
     [SerializeField]
+    ArenaEvent onReset = new ArenaEvent();
+    [SerializeField]
     ArenaEvent onClear = new ArenaEvent();
 
     void OnEnable() {
@@ -18,8 +19,10 @@ public class ArenaEvents : MonoBehaviour {
             observedArena = GetComponentInParent<Arena>();
         }
         observedArena.onClear += onClear.Invoke;
+        observedArena.onReset += onReset.Invoke;
     }
     void OnDisable() {
         observedArena.onClear -= onClear.Invoke;
+        observedArena.onReset -= onReset.Invoke;
     }
 }

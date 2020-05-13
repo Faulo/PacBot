@@ -1,8 +1,9 @@
 ﻿using System.Collections;
+using Slothsoft.UnityExtensions;
 using UnityEngine;
 
 public class PacAcademy : MonoBehaviour {
-    [SerializeField]
+    [SerializeField, Expandable]
     Arena arenaPrefab = default;
     [SerializeField, Range(0, 100)]
     int arenaRows = 1;

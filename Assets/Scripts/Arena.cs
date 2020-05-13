@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Slothsoft.UnityExtensions;
 using Unity.MLAgents;
 using UnityEngine;
 
@@ -46,6 +47,7 @@ public class Arena : MonoBehaviour {
         AcademyMap,
     }
 
+    public event Action<Arena> onReset;
     public event Action<Arena> onClear;
 
     [Header("Level size")]
@@ -55,14 +57,14 @@ public class Arena : MonoBehaviour {
     int depth = 10;
     public Vector2Int size => new Vector2Int(width, depth);
 
-    [SerializeField]
+    [SerializeField, Expandable]
     Transform wallPrefab = default;
-    [SerializeField]
+    [SerializeField, Expandable]
     Transform interactablePrefab = default;
     [SerializeField, Range(1, 10)]
     float interactablesPerTile = 1;
 
-    [SerializeField]
+    [SerializeField, Expandable]
     Transform botPrefab = default;
 
     Transform[,] tiles;
@@ -114,11 +116,18 @@ public class Arena : MonoBehaviour {
                 if (t % interactablesPerTile == 0) {
                     interactables.Add(Instantiate(interactablePrefab, tiles[x, z]));
                 }
-                UpdateTileAt(x, z);
                 t++;
             }
         }
+
+        Reset();
+
         Instantiate(botPrefab, PositionOnTile(width / 2, depth / 2), Quaternion.identity, transform);
+    }
+
+    public void RandomizeNoiseOffsets() {
+        noiseOffsetX = UnityEngine.Random.Range(0, 1000);
+        noiseOffsetZ = UnityEngine.Random.Range(0, 1000);
     }
 
     public Vector3 PositionOnTile(int x, int z) {
@@ -137,6 +146,7 @@ public class Arena : MonoBehaviour {
 
 
     public void Reset() {
+        onReset?.Invoke(this);
         foreach (var interactable in interactables) {
             interactable.localPosition = interactablePrefab.localPosition;
             interactable.gameObject.SetActive(true);
