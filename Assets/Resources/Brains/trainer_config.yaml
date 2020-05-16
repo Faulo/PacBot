@@ -23,7 +23,7 @@ default:
             strength: 1.0
             gamma: 0.99
 PacBot:
-    max_steps: 5.0e7
+    max_steps: 1.0e8
     batch_size: 128
     buffer_size: 2048
     beta: 5.0e-3
